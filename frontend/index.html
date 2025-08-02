@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoopBase - Developer Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #3a3a3d 0%, #48A9F8 100%);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+    .dribbble-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(76, 99, 255, 0.15);
+      padding: 2.5rem 2rem;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .dribbble-btn {
+      background: linear-gradient(90deg, #6C63FF 0%, #48A9F8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.9rem 0;
+      width: 100%;
+      margin-top: 1.5rem;
+      box-shadow: 0 2px 8px rgba(76, 99, 255, 0.10);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .dribbble-btn:hover {
+      background: linear-gradient(90deg, #48A9F8 0%, #6C63FF 100%);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 4px 16px rgba(76, 99, 255, 0.18);
+    }
+    .dribbble-link {
+      color: #6C63FF;
+      text-decoration: underline;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .dribbble-link:hover {
+      color: #48A9F8;
+    }
+    .dribbble-label {
+      color: #6C63FF;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .dribbble-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid #e0e7ff;
+      background: #f8fafc;
+      color: #232946;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .dribbble-input:focus {
+      outline: none;
+      border-color: #6C63FF;
+      box-shadow: 0 0 0 2px #6C63FF33;
+    }
+    @media (min-width: 900px) {
+      .dribbble-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        gap: 3rem;
+      }
+      .dribbble-illustration {
+        max-width: 400px;
+        width: 100%;
+        margin: 0;
+      }
+    }
+    @media (max-width: 899px) {
+      .dribbble-illustration {
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto 2rem auto;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dribbble-flex">
+    <!-- Illustration (replace src with Dribbble image if available) -->
+    <img src="https://assets-global.website-files.com/5e9aa66fd3886c5a2b9d672b/63e3e2b7e2e2e2e2e2e2e2e2_login-illustration.svg" alt="Login Illustration" class="dribbble-illustration" />
+    <!-- To use the exact Dribbble image, replace the src above with the image from https://dribbble.com/shots/20624802-Login-Page-Smart-Save -->
+
+    <div class="dribbble-card">
+      <h2 class="text-2xl font-bold mb-2 text-center" style="color:#232946;">Developer Login</h2>
+      <p class="text-center mb-6" style="color:#6C63FF;">Sign in to your CoopBase account</p>
+      <form id="developer-login-form">
+        <label for="email" class="dribbble-label">Email</label>
+        <input type="email" id="email" name="email" class="dribbble-input" placeholder="Enter your email" required />
+        <label for="password" class="dribbble-label">Password</label>
+        <input type="password" id="password" name="password" class="dribbble-input" placeholder="Enter your password" required />
+        <button type="submit" class="dribbble-btn">Sign In</button>
+      </form>
+      <div class="text-center mt-6">
+        <span style="color:#232946;">Need a society account?</span>
+        <a href="society-register.html" class="dribbble-link ml-1">Register your society</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Developer Login Form Handler
+    document.getElementById('developer-login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const email = formData.get('email');
+      const password = formData.get('password');
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Signing in...';
+      submitBtn.disabled = true;
+      try {
+        const response = await fetch('/api/auth/developer/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('devToken', data.token);
+          localStorage.setItem('userRole', 'developer');
+          localStorage.setItem('userData', JSON.stringify(data.user));
+          window.location.href = '/developer-dashboard.html';
+        } else {
+          submitBtn.textContent = 'Login Failed';
+          setTimeout(() => { submitBtn.textContent = originalText; }, 2000);
+          alert(data.message || 'Login failed. Please check your credentials.');
+        }
+      } catch (error) {
+        submitBtn.textContent = 'Connection Error';
+        setTimeout(() => { submitBtn.textContent = originalText; }, 2000);
+        alert('An error occurred during login. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

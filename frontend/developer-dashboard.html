@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Dashboard - CoopBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Link to Developer Login -->
+    <div class="p-4 bg-white shadow text-center">
+        <a href="/index.html" class="text-indigo-600 hover:underline font-semibold">&larr; Back to Developer Login</a>
+    </div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-indigo-600">CoopBase</a>
+                    <span class="ml-2 text-gray-600 text-sm">Developer Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="user-name" class="text-gray-700"></span>
+                    <button onclick="logout()" class="text-red-600 hover:text-red-700 font-medium">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Developer Dashboard</h1>
+            <p class="text-gray-600 mt-2">Manage societies and system administration</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Total Societies</p>
+                        <p id="total-societies" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-yellow-100 rounded-lg">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Pending Approvals</p>
+                        <p id="pending-societies" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-green-100 rounded-lg">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Approved Societies</p>
+                        <p id="approved-societies" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-red-100 rounded-lg">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Rejected Societies</p>
+                        <p id="rejected-societies" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Societies Section -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Pending Society Approvals</h2>
+            </div>
+            <div class="p-6">
+                <div id="pending-societies-list" class="space-y-4">
+                    <p class="text-gray-500 text-center py-8">Loading pending societies...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const token = localStorage.getItem('devToken');
+            const userData = localStorage.getItem('userData');
+            
+            if (!token || !userData) {
+                alert('Please login first');
+                window.location.href = '/index.html';
+                return;
+            }
+
+            // Display user name
+            const user = JSON.parse(userData);
+            document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                const token = localStorage.getItem('devToken');
+                
+                // Load pending societies
+                const response = await fetch('/api/auth/pending-societies', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    displayPendingSocieties(data.societies);
+                    updateStats(data.societies);
+                } else {
+                    console.error('Failed to load pending societies');
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        // Display pending societies
+        function displayPendingSocieties(societies) {
+            const container = document.getElementById('pending-societies-list');
+            
+            if (societies.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">No pending societies to approve</p>';
+                return;
+            }
+
+            container.innerHTML = societies.map(society => `
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">${society.name}</h3>
+                            <p class="text-gray-600">Registration: ${society.registration_number}</p>
+                            <p class="text-gray-600">Type: ${society.society_type}</p>
+                            <p class="text-gray-600">Admin: ${society.admin_name} (${society.admin_email})</p>
+                            <p class="text-sm text-gray-500">Submitted: ${new Date(society.created_at).toLocaleDateString()}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="approveSociety('${society.id}')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">
+                                Approve
+                            </button>
+                            <button onclick="rejectSociety('${society.id}')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm">
+                                Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update statistics
+        function updateStats(societies) {
+            document.getElementById('pending-societies').textContent = societies.length;
+            // For now, we'll set placeholder values for other stats
+            document.getElementById('total-societies').textContent = societies.length;
+            document.getElementById('approved-societies').textContent = '0';
+            document.getElementById('rejected-societies').textContent = '0';
+        }
+
+        // Approve society
+        async function approveSociety(societyId) {
+            if (!confirm('Are you sure you want to approve this society?')) return;
+            
+            try {
+                const token = localStorage.getItem('devToken');
+                const response = await fetch(`/api/auth/society/${societyId}/approval`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: 'approved' })
+                });
+
+                if (response.ok) {
+                    alert('Society approved successfully!');
+                    loadDashboardData(); // Reload data
+                } else {
+                    alert('Failed to approve society');
+                }
+            } catch (error) {
+                console.error('Error approving society:', error);
+                alert('An error occurred while approving the society');
+            }
+        }
+
+        // Reject society
+        async function rejectSociety(societyId) {
+            const reason = prompt('Please provide a reason for rejection:');
+            if (!reason) return;
+            
+            try {
+                const token = localStorage.getItem('devToken');
+                const response = await fetch(`/api/auth/society/${societyId}/approval`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: 'rejected', reason })
+                });
+
+                if (response.ok) {
+                    alert('Society rejected successfully!');
+                    loadDashboardData(); // Reload data
+                } else {
+                    alert('Failed to reject society');
+                }
+            } catch (error) {
+                console.error('Error rejecting society:', error);
+                alert('An error occurred while rejecting the society');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('devToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userData');
+            window.location.href = '/index.html';
+        }
+
+        // Initialize dashboard
+        checkAuth();
+        loadDashboardData();
+    </script>
+</body>
+</html> 

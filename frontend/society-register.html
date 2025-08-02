@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Society - CoopBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-blue-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-indigo-600">CoopBase</a>
+                    <span class="ml-2 text-gray-600 text-sm">Cooperative Society Management</span>
+                </div>
+                <a href="index.html" class="text-indigo-600 hover:text-indigo-700 font-medium">
+                    ← Back to Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Register Your Society</h1>
+                <p class="text-gray-600">Join CoopBase and start managing your cooperative society efficiently</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="society-registration-form" class="space-y-6">
+                <!-- Society Information -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Society Information</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="society-name" class="block text-sm font-medium text-gray-700 mb-1">Society Name *</label>
+                            <input 
+                                type="text" 
+                                id="society-name"
+                                name="societyName"
+                                placeholder="Enter society name" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="registration-number" class="block text-sm font-medium text-gray-700 mb-1">Registration Number *</label>
+                            <input 
+                                type="text" 
+                                id="registration-number"
+                                name="registrationNumber"
+                                placeholder="Government registration number" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="society-type" class="block text-sm font-medium text-gray-700 mb-1">Society Type *</label>
+                            <select 
+                                id="society-type"
+                                name="societyType"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                                <option value="">Select society type</option>
+                                <option value="credit">Credit Cooperative</option>
+                                <option value="consumer">Consumer Cooperative</option>
+                                <option value="producer">Producer Cooperative</option>
+                                <option value="housing">Housing Cooperative</option>
+                                <option value="worker">Worker Cooperative</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="establishment-date" class="block text-sm font-medium text-gray-700 mb-1">Establishment Date *</label>
+                            <input 
+                                type="date" 
+                                id="establishment-date"
+                                name="establishmentDate"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="admin-name" class="block text-sm font-medium text-gray-700 mb-1">Admin Name *</label>
+                            <input 
+                                type="text" 
+                                id="admin-name"
+                                name="adminName"
+                                placeholder="Society administrator name" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="admin-email" class="block text-sm font-medium text-gray-700 mb-1">Admin Email *</label>
+                            <input 
+                                type="email" 
+                                id="admin-email"
+                                name="adminEmail"
+                                placeholder="admin@society.com" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="admin-phone" class="block text-sm font-medium text-gray-700 mb-1">Admin Phone *</label>
+                            <input 
+                                type="tel" 
+                                id="admin-phone"
+                                name="adminPhone"
+                                placeholder="+1234567890" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="society-address" class="block text-sm font-medium text-gray-700 mb-1">Society Address *</label>
+                            <input 
+                                type="text" 
+                                id="society-address"
+                                name="societyAddress"
+                                placeholder="Complete address" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Setup -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Account Setup</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+                            <input 
+                                type="password" 
+                                id="password"
+                                name="password"
+                                placeholder="Create a strong password" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                                minlength="8"
+                            >
+                        </div>
+                        <div>
+                            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
+                            <input 
+                                type="password" 
+                                id="confirm-password"
+                                name="confirmPassword"
+                                placeholder="Confirm your password" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                required
+                                minlength="8"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Upload -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Required Documents</h3>
+                    <p class="text-sm text-gray-600 mb-4">Please upload the following documents for verification:</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label for="registration-certificate" class="block text-sm font-medium text-gray-700 mb-2">
+                                Registration Certificate * (PDF, JPG, PNG - Max 5MB)
+                            </label>
+                            <input 
+                                type="file" 
+                                id="registration-certificate"
+                                name="registrationCertificate"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                                required
+                            >
+                        </div>
+                        
+                        <div>
+                            <label for="bylaws" class="block text-sm font-medium text-gray-700 mb-2">
+                                Society Bylaws * (PDF - Max 10MB)
+                            </label>
+                            <input 
+                                type="file" 
+                                id="bylaws"
+                                name="bylaws"
+                                accept=".pdf"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                                required
+                            >
+                        </div>
+                        
+                        <div>
+                            <label for="additional-docs" class="block text-sm font-medium text-gray-700 mb-2">
+                                Additional Documents (Optional)
+                            </label>
+                            <input 
+                                type="file" 
+                                id="additional-docs"
+                                name="additionalDocs"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                multiple
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="pb-6">
+                    <div class="flex items-start">
+                        <input 
+                            type="checkbox" 
+                            id="terms"
+                            name="terms"
+                            class="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                            required
+                        >
+                        <label for="terms" class="ml-2 text-sm text-gray-700">
+                            I agree to the 
+                            <a href="#" class="text-green-600 hover:text-green-700 underline">Terms and Conditions</a> 
+                            and 
+                            <a href="#" class="text-green-600 hover:text-green-700 underline">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center">
+                    <button 
+                        type="submit" 
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                        Register Society
+                    </button>
+                </div>
+            </form>
+
+            <!-- Registration Status -->
+            <div id="registration-status" class="mt-6 hidden">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Registration Submitted</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <p>Your society registration has been submitted successfully. Our team will review your application and documents. You will receive an email notification once your account is approved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-400">&copy; 2024 CoopBase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Password confirmation validation
+        document.getElementById('confirm-password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (password !== confirmPassword) {
+                this.setCustomValidity('Passwords do not match');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // File size validation
+        function validateFileSize(file, maxSizeMB) {
+            const maxSizeBytes = maxSizeMB * 1024 * 1024;
+            if (file.size > maxSizeBytes) {
+                return `File size must be less than ${maxSizeMB}MB`;
+            }
+            return null;
+        }
+
+        // Registration form handler
+        document.getElementById('society-registration-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            // Validate file sizes
+            const registrationCert = formData.get('registrationCertificate');
+            const bylaws = formData.get('bylaws');
+            
+            if (registrationCert) {
+                const error = validateFileSize(registrationCert, 5);
+                if (error) {
+                    alert(error);
+                    return;
+                }
+            }
+            
+            if (bylaws) {
+                const error = validateFileSize(bylaws, 10);
+                if (error) {
+                    alert(error);
+                    return;
+                }
+            }
+            
+            try {
+                const response = await fetch('/api/auth/society/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Show success message
+                    document.getElementById('registration-status').classList.remove('hidden');
+                    this.reset();
+                    
+                    // Scroll to status message
+                    document.getElementById('registration-status').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                } else {
+                    alert(data.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('An error occurred during registration');
+            }
+        });
+    </script>
+</body>
+</html> 

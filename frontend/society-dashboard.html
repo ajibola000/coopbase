@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Society Dashboard - CoopBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-indigo-600">CoopBase</a>
+                    <span class="ml-2 text-gray-600 text-sm">Society Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="user-name" class="text-gray-700"></span>
+                    <button onclick="logout()" class="text-red-600 hover:text-red-700 font-medium">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Society Dashboard</h1>
+            <p class="text-gray-600 mt-2">Manage your cooperative society operations</p>
+        </div>
+
+        <!-- Society Info Card -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Society Information</h2>
+            <div id="society-info" class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Society Name</p>
+                    <p id="society-name" class="text-lg text-gray-900">Loading...</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Registration Number</p>
+                    <p id="society-registration" class="text-lg text-gray-900">Loading...</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Society Type</p>
+                    <p id="society-type" class="text-lg text-gray-900">Loading...</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Status</p>
+                    <p id="society-status" class="text-lg text-gray-900">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Members</h3>
+                        <p class="text-gray-600">Manage society members</p>
+                        <button class="mt-2 text-blue-600 hover:text-blue-700 font-medium">
+                            View Members →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-green-100 rounded-lg">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Services</h3>
+                        <p class="text-gray-600">Manage society services</p>
+                        <button class="mt-2 text-green-600 hover:text-green-700 font-medium">
+                            Manage Services →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Reports</h3>
+                        <p class="text-gray-600">View financial reports</p>
+                        <button class="mt-2 text-purple-600 hover:text-purple-700 font-medium">
+                            View Reports →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Recent Activity</h2>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <p class="text-gray-700">Society registration approved</p>
+                        <span class="text-sm text-gray-500">2 days ago</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        <p class="text-gray-700">Account created successfully</p>
+                        <span class="text-sm text-gray-500">3 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const token = localStorage.getItem('societyToken');
+            const userData = localStorage.getItem('userData');
+            
+            if (!token || !userData) {
+                alert('Please login first');
+                window.location.href = '/index.html';
+                return;
+            }
+
+            // Display user name
+            const user = JSON.parse(userData);
+            document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+        }
+
+        // Load society information
+        async function loadSocietyInfo() {
+            try {
+                const token = localStorage.getItem('societyToken');
+                const societyId = localStorage.getItem('societyId');
+                
+                if (!societyId) {
+                    console.error('Society ID not found');
+                    return;
+                }
+
+                const response = await fetch(`/api/auth/society/${societyId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    displaySocietyInfo(data.society);
+                } else {
+                    console.error('Failed to load society information');
+                }
+            } catch (error) {
+                console.error('Error loading society info:', error);
+            }
+        }
+
+        // Display society information
+        function displaySocietyInfo(society) {
+            document.getElementById('society-name').textContent = society.name;
+            document.getElementById('society-registration').textContent = society.registration_number;
+            document.getElementById('society-type').textContent = society.society_type;
+            
+            const statusElement = document.getElementById('society-status');
+            statusElement.textContent = society.status;
+            
+            // Add status color
+            if (society.status === 'approved') {
+                statusElement.className = 'text-lg text-green-600 font-medium';
+            } else if (society.status === 'pending') {
+                statusElement.className = 'text-lg text-yellow-600 font-medium';
+            } else if (society.status === 'rejected') {
+                statusElement.className = 'text-lg text-red-600 font-medium';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('societyToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('societyId');
+            window.location.href = '/index.html';
+        }
+
+        // Initialize dashboard
+        checkAuth();
+        loadSocietyInfo();
+    </script>
+</body>
+</html> 
